@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(turtlebotMove)
+project(turtlebotmove)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -98,7 +98,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES turtlebotMove
+#  LIBRARIES turtlebotmove
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -116,7 +116,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/turtlebotMove.cpp
+#   src/${PROJECT_NAME}/turtlebotmove.cpp
 # )
 
 ## Add cmake target dependencies of the library
