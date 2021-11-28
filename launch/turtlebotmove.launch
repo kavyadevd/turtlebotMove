@@ -1,9 +1,10 @@
 <launch>
 <include file= "$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch" >
+		<!-- <arg name="world_name" value="$(find turtlebotmove)/world/moveworld.world"/> -->
 </include>
 
 <node 
-    pkg = "turtlebotMove" 
+    pkg = "turtlebotmove" 
     type = "turtlebotMove_node"
     name = "turtlebotMove_node"
     output = "screen"
