@@ -37,10 +37,12 @@
 #include <sstream>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "sensor_msgs/LaserScan.h"
 
 class Move {
     private:
-
+        double turtle_vel  // move velocity of turtlebot
+        ros::Subscriber laser_scan;  // object for laser scan
     public:
         /**
         * @brief Constructor for move class
