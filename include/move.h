@@ -41,4 +41,7 @@
 class Move {
     private:
 
+    public:
+        Move (ros::NodeHandle);
+        void StartWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
 };
