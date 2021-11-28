@@ -42,6 +42,18 @@ class Move {
     private:
 
     public:
+        /**
+        * @brief Constructor for move class
+        * @param ROS node handler
+        */
         Move (ros::NodeHandle);
+
+        /**
+        * @brief Initialize turtlebot move
+        * 
+        * @param ROS nodehandler
+        * @param ROS Publisher 
+        * @param Rate of publisher 
+        */
         void StartWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
 };
