@@ -65,6 +65,9 @@ int main(int argc, char **argv) {
       > ("cmd_vel", 500);
 
   Move move_(n);
+
+
+  move_.startMoving(n, send_velocity, publish_rate);
   return 0;
 }
 // %EndTag(FULLTEXT)%

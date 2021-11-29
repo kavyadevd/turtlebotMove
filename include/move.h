@@ -48,6 +48,8 @@ class Move {
         ros::Publisher send_velocity; // variable to publish velocity
         ros::Subscriber laser_scan;  // object for laser scan
         bool collision_yn = false;
+        bool turn_yn = false;
+        bool move_yn = true;
     public:
         /**
         * @brief Constructor for move class
