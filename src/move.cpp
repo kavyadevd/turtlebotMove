@@ -41,13 +41,29 @@
 #include "../include/move.h"
 #include "sensor_msgs/LaserScan.h"
 
-
-Move::Move(ros::NodeHandle nh) {
-  ROS_INFO_STREAM("Initialized node.");
-  ROS_DEBUG_STREAM("Move object created.");
-  send_velocity = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 150);
-  turtle_vel = 150;
+Move::Move(ros::NodeHandle nh)
+{
+    ROS_INFO_STREAM("Initialized node.");
+    ROS_DEBUG_STREAM("Move object created.");
+    send_velocity = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 150);
+    turtle_vel = 150;
+    laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
 }
 
+void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data)
+{
+    for (int i = 0; i < laser_data->ranges.size(); i++)
+    {
+        if (laser_data->ranges[i] < 1.0)
+        {
+            collision_yn = true;
+            ROS_DEBUG_STREAM("Lase value: " << laser_data->ranges[i]);
+            ROS_INFO_STREAM("Obstacle close");
+            return;
+        }
+    }
+    collision_yn = false;
+    ROS_DEBUG_STREAM("Path clear.");
+}
 
 Move::~Move() {}

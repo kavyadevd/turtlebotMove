@@ -44,6 +44,7 @@ class Move {
         double turtle_vel;  // move velocity of turtlebot
         ros::Publisher send_velocity; // variable to publish velocity
         ros::Subscriber laser_scan;  // object for laser scan
+        bool collision_yn = false;
     public:
         /**
         * @brief Constructor for move class
@@ -58,7 +59,12 @@ class Move {
         * @param ROS Publisher 
         * @param Rate of publisher 
         */
-        void StartWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
+        void startWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
+
+        /**
+        * @brief Read data from laser scan
+        */
+        void getLaserData(const sensor_msgs::LaserScan::ConstPtr&);
 
         /**
         * @brief Destructor
