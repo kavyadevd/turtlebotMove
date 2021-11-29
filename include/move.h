@@ -47,6 +47,7 @@ class Move {
         double turtle_vel;  // move velocity of turtlebot
         ros::Publisher send_velocity; // variable to publish velocity
         ros::Subscriber laser_scan;  // object for laser scan
+        geometry_msgs::Twist robot_vel; // Robot twist message object
         bool collision_yn = false;
         bool turn_yn = false;
         bool move_yn = true;
