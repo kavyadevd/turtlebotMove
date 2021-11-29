@@ -1,0 +1,23 @@
+# GIT files
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Vendored
+LICENSE*.* linguist-vendored
+
+# File types (text/binary, EOL, language, documentation)
+*.c text eol=crlf linguist-language=C
+*.cpp text eol=crlf linguist-language=C++
+*.docx binary linguist-documentation
+*.h text eol=crlf linguist-language=C++
+*.hpp text eol=crlf linguist-language=C++
+*.html text eol=crlf linguist-documentation linguist-generated=false
+*.css text eol=crlf linguist-documentation linguist-generated=false
+*.js text eol=crlf linguist-documentation linguist-generated=false
+*.tex text eol=crlf linguist-documentation linguist-generated=false
+vendor export-ignore
+*.md text eol=crlf linguist-language=Markdown linguist-documentation
+*.pdf binary linguist-documentation
+*.png binary
+*.txt text eol=crlf linguist-language=Text linguist-documentation
+*.xml text eol=crlf linguist-language=XML
