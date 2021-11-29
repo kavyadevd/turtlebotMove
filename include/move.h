@@ -33,6 +33,9 @@
  * @brief Header file for moving turtlebot
  */
 
+#ifndef INCLUDE_MOVE_
+#define INCLUDE_MOVE_
+
 // Include required headers
 #include <sstream>
 #include "ros/ros.h"
@@ -50,7 +53,7 @@ class Move {
         * @brief Constructor for move class
         * @param ROS node handler
         */
-        Move (ros::NodeHandle);
+        explicit Move (ros::NodeHandle);
 
         /**
         * @brief Initialize turtlebot move

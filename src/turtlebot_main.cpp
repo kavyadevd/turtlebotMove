@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 
   ros::Rate loop_rate(10);
 
-  //Publish to bot velocity topic
+  // Publish to bot velocity topic
   ros::Publisher send_velocity = n.advertise < geometry_msgs::Twist
       > ("cmd_vel", 500);
 

@@ -1,3 +1,2 @@
 Done processing ./src/move.cpp
 Done processing ./src/turtlebot_main.cpp
-Total errors found: 7
