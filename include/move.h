@@ -66,6 +66,13 @@ class Move {
         */
         void getLaserData(const sensor_msgs::LaserScan::ConstPtr&);
 
+
+        /**
+        * @brief Stops turtlebot by setting all velocities to zero
+        */
+        void stopMoving(ros::Publisher);
+
+
         /**
         * @brief Destructor
         * 

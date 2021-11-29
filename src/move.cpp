@@ -66,4 +66,16 @@ void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data)
     ROS_DEBUG_STREAM("Path clear.");
 }
 
+void Move::stopMoving(ros::Publisher turtle_vel_) {
+  geometry_msgs::Twist robot_vel;
+  robot_vel.linear.x = 0.0;
+  robot_vel.linear.y = 0.0;
+  robot_vel.linear.z = 0.0;
+  robot_vel.angular.x = 0.0;
+  robot_vel.angular.y = 0.0;
+  robot_vel.angular.z = 0.0;
+  turtle_vel_.publish(robot_vel);
+}
+
+
 Move::~Move() {}
