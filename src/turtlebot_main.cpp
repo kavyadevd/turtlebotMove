@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
    */
   ros::NodeHandle n;
 
-  ros::Rate publish_rate(15);
+  ros::Rate publish_rate(10);
 
   // Publish to bot velocity topic
   ros::Publisher send_velocity = n.advertise < geometry_msgs::Twist
@@ -66,8 +66,9 @@ int main(int argc, char **argv) {
 
   Move move_(n);
 
-
-  move_.startMoving(n, send_velocity, publish_rate);
+  while (ros::ok()) {
+    move_.startMoving(n, send_velocity, publish_rate);
+  }
   return 0;
 }
 // %EndTag(FULLTEXT)%
