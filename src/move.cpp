@@ -39,3 +39,14 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Twist.h"
 #include "../include/move.h"
+#include "sensor_msgs/LaserScan.h"
+
+
+Move::Move(ros::NodeHandle nh) {
+  ROS_INFO_STREAM("Initialized node.");
+  ROS_DEBUG_STREAM("Move object created.");
+  send_velocity = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 50);
+}
+
+
+Move::~Move() {}

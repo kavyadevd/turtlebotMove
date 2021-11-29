@@ -42,6 +42,7 @@
 class Move {
     private:
         double turtle_vel  // move velocity of turtlebot
+        ros::Publisher send_velocity // variable to publish velocity
         ros::Subscriber laser_scan;  // object for laser scan
     public:
         /**
@@ -58,4 +59,10 @@ class Move {
         * @param Rate of publisher 
         */
         void StartWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
+
+        /**
+        * @brief Destructor
+        * 
+        */
+        ~Move()
 };
