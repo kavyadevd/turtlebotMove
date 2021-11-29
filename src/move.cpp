@@ -44,19 +44,20 @@
 Move::Move(ros::NodeHandle nh) {
     ROS_INFO_STREAM("Initialized node.");
     ROS_DEBUG_STREAM("Move object created.");
-    send_velocity = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 150);
+    send_velocity = nh.advertise<geometry_msgs::Twist>
+      ("/mobile_base/commands/velocity", 150);
     turtle_vel = 150;
     laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
 }
 
-void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data) {    
+void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data) {
     move_yn = true;
-    auto start_ = laser_data->ranges.begin() ;
+    auto start_ = laser_data->ranges.begin();
     auto end_ = laser_data->ranges.end() - 30;
     std::vector<double> collision_;
     std::vector<double> laser_range;
 
-    collision_ = std::vector<double>(end_,end_+30);
+    collision_ = std::vector<double>(end_, end_+30);
     laser_range = std::vector<double>(start_, start_+30);
 
     collision_.insert(collision_.end(), laser_range.begin(),
@@ -97,7 +98,7 @@ void Move::turnBot(ros::NodeHandle nh, ros::Publisher turtle_vel_) {
 }
 
 void Move::startMoving(ros::NodeHandle nh, ros::Publisher turtle_vel_,
-                       ros::Rate publish_rate) {    
+                       ros::Rate publish_rate) {
         ROS_INFO_STREAM("Robot walking randomly.");
         if (collision_yn) {
             stopMoving(turtle_vel_);
@@ -109,7 +110,7 @@ void Move::startMoving(ros::NodeHandle nh, ros::Publisher turtle_vel_,
         turtle_vel_.publish(robot_vel);
         ros::spinOnce();
         publish_rate.sleep();
-        ROS_INFO_STREAM("Velocity:" << robot_vel.linear.x );
+        ROS_INFO_STREAM("Velocity:" << robot_vel.linear.x);
         ROS_INFO_STREAM(" and " << robot_vel.angular.z);
 }
 
