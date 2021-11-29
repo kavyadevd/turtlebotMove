@@ -1,0 +1,80 @@
+A R\+OS based obstacle avoiding turtlebot program. Simulation in Gazebo of turtlebot moving randomly and avoiding obstacles.\hypertarget{md_README_autotoc_md1}{}\doxysection{Installations}\label{md_README_autotoc_md1}
+To install R\+OS refer \href{http://wiki.ros.org/ROS/Installation}{\texttt{ this link}}.\hypertarget{md_README_autotoc_md2}{}\doxysection{Requirements / Assumptions}\label{md_README_autotoc_md2}
+\hypertarget{md_README_autotoc_md3}{}\doxysubsubsection{Project requires an evironment minimum with Ubuntu 18.\+04, R\+O\+S Melodic.}\label{md_README_autotoc_md3}
+\hypertarget{md_README_autotoc_md4}{}\doxysubsubsection{System must have turtlebot 3}\label{md_README_autotoc_md4}
+If not install it using install\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install ros-\/melodic-\/turtlebot3-\/*}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md5}{}\doxysubsection{Step 1. Clone repository and build the package}\label{md_README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone -\/-\/recursive https://github.com/kavyadevd/turtlebotMove.git}
+\DoxyCodeLine{cp <repository\_path> <catkin\_workspace\_path/src/>}
+\DoxyCodeLine{cd <catkin\_workspace>}
+\DoxyCodeLine{source ./devel/setup.bash}
+\DoxyCodeLine{catkin\_make}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md6}{}\doxysubsection{Step 2. Make sure that a roscore is up and running}\label{md_README_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roscore}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md7}{}\doxysubsection{Step 3. Launch the project using roslaunch}\label{md_README_autotoc_md7}
+Without rosbag\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch turtlebotmove turtlebotmove.launch }
+\end{DoxyCode}
+
+
+With rosbag\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{roslaunch turtlebotmove turtlebotmove.launch rosbag\_yn:=true    }
+\end{DoxyCode}
+
+
+To compress bag file\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rosbag compress *.bag}
+\end{DoxyCode}
+
+
+To play rosbag file\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rosbag play <rosbag-\/file-\/path>/<rosbag-\/file>.bag}
+\end{DoxyCode}
+
+
+Bag file is too large for Git\+Hub hence uploaded on google drive link \href{https://drive.google.com/drive/folders/1ZmyV41yVvmUcCoJwuPEF4E94F5UqW0-k?usp=sharing}{\texttt{ here}}\hypertarget{md_README_autotoc_md8}{}\doxysection{Note}\label{md_README_autotoc_md8}
+An active operation running on a terminal can be terminated by giving a Ctrl+C input from keyboard at any time.\hypertarget{md_README_autotoc_md9}{}\doxysection{Plugins}\label{md_README_autotoc_md9}
+
+\begin{DoxyItemize}
+\item Cpp\+Check\+Eclipse
+
+To install and run cppcheck in Eclipse
+\begin{DoxyEnumerate}
+\item In Eclipse, go to Window -\/$>$ Preferences -\/$>$ C/\+C++ -\/$>$ cppcheclipse. Set cppcheck binary path to \char`\"{}/usr/bin/cppcheck\char`\"{}.
+\item To run C\+P\+P\+Check on a project, right-\/click on the project name in the Project Explorer and choose cppcheck -\/$>$ Run cppcheck.
+\item To run on terminal \`{}\`{}\`{}bash cppcheck --enable=all --std=c++11 -\/I include/ --suppress=missing\+Include\+System \$( find . -\/name $\ast$.cpp -\/or -\/name $\ast$.h $\vert$ grep -\/vE -\/e \char`\"{}$^\wedge$./build/\char`\"{} -\/e \char`\"{}$^\wedge$./vendor/\char`\"{}) $>$ Results/cppcheckoutput.\+txt \`{}\`{}\`{} Results are present at Results/cppcheckoutput.\+txt
+\end{DoxyEnumerate}
+\item Cpplint
+\begin{DoxyEnumerate}
+\item To run cpplint on terminal 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cpplint \$( find . -\/name *.cpp | grep -\/vE -\/e "\string^./build/" -\/e "\string^./vendor/") \$( find . -\/name *.hpp | grep -\/vE -\/e "\string^./build/" -\/e "\string^./vendor/") >                    Results/cpplintoutput.txt}
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+
+Results are present at Results/cpplintoutput.\+xml
+\item Google C++ Style
+
+To include and use Google C++ Style formatter in Eclipse
+\begin{DoxyEnumerate}
+\item In Eclipse, go to Window -\/$>$ Preferences -\/$>$ C/\+C++ -\/$>$ Code Style -\/$>$ Formatter. Import \href{https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-cpp-google-style.xml}{\texttt{ eclipse-\/cpp-\/google-\/style}} and apply.
+\item To use Google C++ style formatter, right-\/click on the source code or folder in Project Explorer and choose Source -\/$>$ Format
+\end{DoxyEnumerate}
+\item Doxygen
+
+The H\+T\+ML page for project outlines can be generated using the following commands \`{}\`{}\`{}bash doxygen -\/g doxygen Doxyfile \`{}\`{}\`{} 
+\end{DoxyItemize}
