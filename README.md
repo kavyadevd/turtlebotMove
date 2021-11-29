@@ -7,7 +7,12 @@ A ROS based obstacle avoiding turtlebot program. Simulation in Gazebo of turtleb
 To install ROS refer [this link](http://wiki.ros.org/ROS/Installation).
 
 ## Requirements / Assumptions
-Project requires and evironment with Ubuntu 18.04, ROS Melodic
+#### Project requires an evironment minimum with Ubuntu 18.04, ROS Melodic.
+#### System must have turtlebot 3
+If not install it using install:
+```bash
+sudo apt-get install ros-melodic-turtlebot3-*
+```
 
 
 ### Step 1. Clone repository and build the package
@@ -24,7 +29,27 @@ catkin_make
 roscore
 ```
 
+### Step 3. Launch the project using roslaunch
+Without rosbag:
+```bash
+roslaunch turtlebotmove turtlebotmove.launch 
+```
 
+With rosbag:
+```bash
+roslaunch turtlebotmove turtlebotmove.launch rosbag_yn:=true    
+```
+To compress bag file:
+```
+rosbag compress *.bag
+
+```
+To play rosbag file:
+```bash
+rosbag play <rosbag-file-path>/<rosbag-file>.bag
+```
+
+Bag file is too large for GitHub hence uploaded on google drive link [here](https://drive.google.com/drive/folders/1ZmyV41yVvmUcCoJwuPEF4E94F5UqW0-k?usp=sharing)
 
 ## Note
 An active operation running on a terminal can be terminated by giving a Ctrl+C input from keyboard at any time.
