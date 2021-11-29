@@ -50,6 +50,19 @@ Move::Move(ros::NodeHandle nh) {
   laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
 }
 
+
+void Move::move_() {
+  if (scan.collisionyn() == true) {
+    robot_vel.linear.x = 0.0;
+    robot_vel.angular.z = 1.0;
+  } else {
+    robot_vel.linear.x = 0.5;
+    robot_vel.angular.z = 0.0;
+  }
+  turtle_vel_.publish(robot_vel);
+}
+
+
 void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data) {
     move_yn = true;
     ROS_INFO_STREAM("Turtlebot Walking.");
