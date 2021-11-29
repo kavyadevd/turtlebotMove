@@ -7,4 +7,10 @@
 	<node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_$(env TURTLEBOT3_MODEL) -param robot_description" />
     <node pkg = "turtlebotmove" type = "turtlebot_main" name = "turtlebot_main" output = "screen"/>
 
+    <!-- ROSbag -->
+
+    <node pkg="rosbag" name="record" type="record"
+        args="-a -x /camera/(.*) -O $(find turtlebotmove)/Results/turtlebotmove.bag"
+        if="$(arg rosbag_yn)"
+    />
 </launch>
