@@ -69,12 +69,21 @@ class Move {
         */
         void getLaserData(const sensor_msgs::LaserScan::ConstPtr&);
 
-
         /**
         * @brief Stops turtlebot by setting all velocities to zero
         */
         void stopMoving(ros::Publisher);
+        
+        /**
+        * @brief Function to turn turtlebot
+        */
+        void turnBot(ros::NodeHandle, ros::Publisher);
 
+
+        /**
+        * @brief Start moving turtlebot
+        */
+        void startMoving(ros::NodeHandle, ros::Publisher, ros::Rate);
 
         /**
         * @brief Destructor
@@ -82,3 +91,5 @@ class Move {
         */
         ~Move();
 };
+
+#endif  //   INCLUDE_MOVE_

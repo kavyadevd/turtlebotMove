@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
    */
   ros::NodeHandle n;
 
-  ros::Rate loop_rate(10);
+  ros::Rate publish_rate(15);
 
   // Publish to bot velocity topic
   ros::Publisher send_velocity = n.advertise < geometry_msgs::Twist

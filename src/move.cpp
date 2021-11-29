@@ -42,12 +42,12 @@
 #include "sensor_msgs/LaserScan.h"
 
 Move::Move(ros::NodeHandle nh) {
-    ROS_INFO_STREAM("Initialized node.");
-    ROS_DEBUG_STREAM("Move object created.");
-    send_velocity = nh.advertise<geometry_msgs::Twist>
-        ("/mobile_base/commands/velocity", 150);
-    turtle_vel = 150;
-    laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
+  ROS_INFO_STREAM("Initialized node.");
+  ROS_DEBUG_STREAM("Move object created.");
+  send_velocity = nh.advertise<geometry_msgs::Twist>
+    ("/mobile_base/commands/velocity", 150);
+  turtle_vel = 150;
+  laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
 }
 
 void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data) {
@@ -74,5 +74,17 @@ void Move::stopMoving(ros::Publisher turtle_vel_) {
   turtle_vel_.publish(robot_vel);
 }
 
+void Move::turnBot(ros::NodeHandle nh, ros::Publisher turtle_vel_) {  
+  ros::Rate publish_rate(15);
+  geometry_msgs::Twist robot_vel;
+  stopMoving(turtle_vel_);
+  robot_vel.angular.z = 0.5;
+  turtle_vel_.publish(robot_vel);
+  while (!collision_yn) {
+    publish_rate.sleep();
+    ros::spinOnce();
+  }
+  stopMoving(turtle_vel_);
+}
 
 Move::~Move() {}
