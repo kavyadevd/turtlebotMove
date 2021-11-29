@@ -8,7 +8,7 @@
     <node pkg = "turtlebotmove" type = "turtlebot_main" name = "turtlebot_main" output = "screen"/>
 
     <!-- ROSbag -->
-
+    <arg name = "rosbag_yn" default= "false" />
     <node pkg="rosbag" name="record" type="record"
         args="-a -x /camera/(.*) -O $(find turtlebotmove)/Results/turtlebotmove.bag"
         if="$(arg rosbag_yn)"
