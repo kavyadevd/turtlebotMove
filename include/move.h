@@ -38,61 +38,64 @@
 
 // Include required headers
 #include <sstream>
+
+#include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
-#include "std_msgs/String.h"
 #include "sensor_msgs/LaserScan.h"
+#include "std_msgs/String.h"
 
 class Move {
-    private:
-        double turtle_vel;  // move velocity of turtlebot
-        ros::Publisher send_velocity; // variable to publish velocity
-        ros::Subscriber laser_scan;  // object for laser scan
-        geometry_msgs::Twist robot_vel; // Robot twist message object
-        bool collision_yn = false;
-        bool turn_yn = false;
-        bool move_yn = true;
-    public:
-        /**
-        * @brief Constructor for move class
-        * @param ROS node handler
-        */
-        explicit Move (ros::NodeHandle);
+   private:
+    double turtle_vel;               // move velocity of turtlebot
+    ros::Publisher send_velocity;    // variable to publish velocity
+    ros::Subscriber laser_scan;      // object for laser scan
+    geometry_msgs::Twist robot_vel;  // Robot twist message object
+    bool collision_yn = false;
+    bool turn_yn = false;
+    bool move_yn = true;
+    float lase_range_val;
 
-        /**
-        * @brief Initialize turtlebot move
-        * 
-        * @param ROS nodehandler
-        * @param ROS Publisher 
-        * @param Rate of publisher 
-        */
-        void startWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
+   public:
+    /**
+     * @brief Constructor for move class
+     * @param ROS node handler
+     */
+    explicit Move(ros::NodeHandle);
 
-        /**
-        * @brief Read data from laser scan
-        */
-        void getLaserData(const sensor_msgs::LaserScan::ConstPtr&);
+    /**
+     * @brief Initialize turtlebot move
+     *
+     * @param ROS nodehandler
+     * @param ROS Publisher
+     * @param Rate of publisher
+     */
+    void startWalk(ros::NodeHandle, ros::Publisher, ros::Rate);
 
-        /**
-        * @brief Stops turtlebot by setting all velocities to zero
-        */
-        void stopMoving(ros::Publisher);
-        
-        /**
-        * @brief Function to turn turtlebot
-        */
-        void turnBot(ros::NodeHandle, ros::Publisher);
+    /**
+     * @brief Read data from laser scan
+     */
+    void getLaserData(const sensor_msgs::LaserScan::ConstPtr&);
 
+    /**
+     * @brief Stops turtlebot by setting all velocities to zero
+     */
+    void stopMoving(ros::Publisher);
 
-        /**
-        * @brief Start moving turtlebot
-        */
-        void startMoving(ros::NodeHandle, ros::Publisher, ros::Rate);
+    /**
+     * @brief Function to turn turtlebot
+     */
+    void turnBot(ros::NodeHandle, ros::Publisher);
 
-        /**
-        * @brief Destructor
-        * 
-        */
-        ~Move();
+    /**
+     * @brief Start moving turtlebot
+     */
+    void startMoving(ros::NodeHandle, ros::Publisher, ros::Rate);
+
+    /**
+     * @brief Destructor
+     *
+     */
+    ~Move();
 };
 
 #endif  //   INCLUDE_MOVE_

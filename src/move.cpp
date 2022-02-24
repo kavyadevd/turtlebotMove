@@ -25,7 +25,7 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  * @file move.cpp
  * @author Kavyashree Devadiga
  * @date 28th November 2021
@@ -34,35 +34,38 @@
  */
 
 // Include required headers
-#include <sstream>
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "geometry_msgs/Twist.h"
 #include "../include/move.h"
+
+#include <sstream>
+
+#include "geometry_msgs/Twist.h"
+#include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
+#include "std_msgs/String.h"
 
 Move::Move(ros::NodeHandle nh) {
     ROS_INFO_STREAM("Initialized node.");
     ROS_DEBUG_STREAM("Move object created.");
-    send_velocity = nh.advertise<geometry_msgs::Twist>
-      ("/mobile_base/commands/velocity", 150);
+    send_velocity = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 150);
     turtle_vel = 150;
     laser_scan = nh.subscribe("scan", 50, &Move::getLaserData, this);
 }
 
+    std::vector<double> collision_;
 void Move::getLaserData(const sensor_msgs::LaserScan::ConstPtr &laser_data) {
     move_yn = true;
     auto start_ = laser_data->ranges.begin();
     auto end_ = laser_data->ranges.end() - 30;
-    std::vector<double> collision_;
     std::vector<double> laser_range;
+            ROS_INFO_STREAM("blah");
 
-    collision_ = std::vector<double>(end_, end_+30);
-    laser_range = std::vector<double>(start_, start_+30);
-
+    collision_ = std::vector<double>(end_, end_ + 30);
+    laser_range = std::vector<double>(start_, start_ + 30);
     collision_.insert(collision_.end(), laser_range.begin(),
-                              laser_range.end());
-    for (auto &range : collision_)  {
+                      laser_range.end());
+    lase_range_val = collision_[collision_.size()-1];
+    for (auto &range : collision_) {
+        ROS_INFO_STREAM("Laser Scan value:" << range << "\n");
         if (range < 0.4) {
             ROS_DEBUG_STREAM("Lase value: " << range);
             ROS_INFO_STREAM("Obstacle close");
@@ -85,7 +88,7 @@ void Move::stopMoving(ros::Publisher turtle_vel_) {
 
 void Move::turnBot(ros::NodeHandle nh, ros::Publisher turtle_vel_) {
     ROS_INFO_STREAM("Turning Robot.");
-    robot_vel.angular.z = 0.3;
+    robot_vel.angular.z = 0.5;
     turtle_vel_.publish(robot_vel);
     ros::Rate publish_rate(10);
     while (!move_yn) {
@@ -99,19 +102,20 @@ void Move::turnBot(ros::NodeHandle nh, ros::Publisher turtle_vel_) {
 
 void Move::startMoving(ros::NodeHandle nh, ros::Publisher turtle_vel_,
                        ros::Rate publish_rate) {
-        ROS_INFO_STREAM("Robot walking randomly.");
-        if (collision_yn) {
-            stopMoving(turtle_vel_);
-            turnBot(nh, turtle_vel_);
-        }  else {
-            robot_vel.linear.x = 0.3;
-            robot_vel.angular.z = 0.0;
-        }
-        turtle_vel_.publish(robot_vel);
-        ros::spinOnce();
-        publish_rate.sleep();
-        ROS_INFO_STREAM("Velocity:" << robot_vel.linear.x);
-        ROS_INFO_STREAM(" and " << robot_vel.angular.z);
+    if (collision_yn) {
+        stopMoving(turtle_vel_);
+        turnBot(nh, turtle_vel_);
+    } else {
+        robot_vel.linear.x = 0.5;
+        robot_vel.angular.z = 0.0;
+    }
+    turtle_vel_.publish(robot_vel);
+    ros::spinOnce();
+    publish_rate.sleep();
+    ROS_INFO_STREAM("Velocity linear:" << robot_vel.linear.x << " Velocity angular: " << robot_vel.angular.z);
+
+
+    ROS_INFO_STREAM("Laser Scan value:" << lase_range_val << "\n");
 }
 
 Move::~Move() {}
