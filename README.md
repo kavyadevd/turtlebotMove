@@ -1,6 +1,8 @@
 # Turtlebot Move
 A ROS based obstacle avoiding turtlebot program. Simulation in Gazebo of turtlebot moving randomly and avoiding obstacles.
 
+![Combined_Manual](https://user-images.githubusercontent.com/13993518/156901437-c9818fa7-cb1a-4a6d-bb37-099314cf0ac2.gif)
+
 
 ## Installations
 
